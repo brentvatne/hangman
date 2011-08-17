@@ -5,12 +5,14 @@ require './hangman.rb'
 describe Hangman do
   ValidPuzzle = File.open("spec/sample_puzzle.txt").read
 
-  describe "#new_game" do
+  describe "#initialize" do
+    #what can I test on this?
+    #could test that it initializes everything but that seems pointless?
   end
 
   describe "#guess" do
     before(:each) do
-      @hangman = Hangman.new_game(ValidPuzzle)
+      @hangman = Hangman.load(ValidPuzzle)
     end
 
     it "should throw game over if there are no guesses remaining" do
@@ -20,6 +22,7 @@ describe Hangman do
       # Brent: I might be wrong in doing it but my justification is that I believe catch and throw should be used to break from a loop / control flow, and in this instance we are trying to break from the 'game loop' so it seems like it's a good use case. What do you usually see used instead of catch/throw in these situations?
       expect { @hangman.guess(symbol_not_in_solution) }.to throw_symbol(:game_over)
     end
+
     it "should return the number of occurrences when the symbol is in the puzzle" do
       @hangman.guess("a").should == 2
       @hangman.guess("r").should == 2

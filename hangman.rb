@@ -5,30 +5,33 @@ class Hangman
                 :puzzle_with_guesses, :guesses_remaining,
                 :guessed
 
-  def self.load_if_filename(puzzle_or_filename)
-    puzzle_or_filename = File.open(puzzle_or_filename).read if File.exists?(puzzle_or_filename)
-    puzzle_or_filename
-  end
-
-  def self.new_game(puzzle, guesses = 10) 
-    puzzle = load_if_filename(puzzle)
-    self.new(puzzle, guesses)
-  end
-
-  #Changed a variable name from number_of_guesses to guesses to match self.load, to avoid confusion about why the same variable might be named differently
   def initialize(puzzle_data, guesses=10)
     parser = HangmanParser.new(puzzle_data); parser.parse
     @puzzle        = parser.puzzle
     @solution      = parser.solution
     @solution_diff = parser.solution_diff 
-    
+
     @puzzle_with_guesses = String.new(@puzzle)
     @guessed             = { :correct => [], :incorrect => [] }
     @guesses_remaining   = guesses
   end
 
+  class << self
+    def load_if_filename(puzzle_or_filename)
+      puzzle_or_filename = File.open(puzzle_or_filename).read if File.exists?(puzzle_or_filename)
+      puzzle_or_filename
+    end
+
+    def load(puzzle, guesses = 10) 
+      puzzle = load_if_filename(puzzle)
+      new(puzzle, guesses)
+    end
+  end
+
   def guess(symbol)
     #Handle multi-symbol guesses recursively in reverse order, so the deepest point of the stack is the first symbol
+    return if @guesses_remaining == 0
+
     if symbol.length > 1
       remaining_symbols = symbol[0..symbol.length-2]
       symbol            = symbol[symbol.length-1]  
@@ -43,7 +46,6 @@ class Hangman
     else
       @guessed[:incorrect].push symbol
       @guesses_remaining -= 1
-      throw :game_over if @guesses_remaining == 0
     end
 
     number_of_occurences_in_solution(symbol)
