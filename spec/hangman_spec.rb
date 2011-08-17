@@ -54,13 +54,6 @@ describe Hangman do
       expect { @hangman.guess("a") }.not_to change{@hangman.guesses_remaining}
     end
 
-    it "should raise an InvalidGuessError if it has already been guessed" do
-      # Sam: Or, consider this a no-op
-      # Brent: What is a no-op?
-      pending "This test may no longer be necessary - if someone wants to guess the same letter twice, that's their fault!"
-      #lambda { 2.times do; @hangman.guess("a"); end }.should raise_error(InvalidGuessError)
-    end 
-
     it "should add (in)correctly guessed symbols to guessed[:(in)correct]" do
       guesses = %w[a b z x]
       guesses.each { |e| @hangman.guess(e) }

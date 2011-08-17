@@ -45,15 +45,15 @@ class HangmanParser
   end
 
   #Hides the solution pieces of any line of text
-  def hide_solution(solution, instruction)
-    obscured_solution = String.new(solution)
-    instruction.split("").each_with_index do |letter, pos|
+  def hide_solution(solution, puzzle_instruction)
+    hidden = String.new(solution)
+    puzzle_instruction.split("").each_with_index do |letter, pos|
       if letter == "^"
-        obscured_solution[pos] = "_"
+        hidden[pos] = "_"
       end 
     end
 
-    obscured_solution
+    hidden
   end
 end
 
