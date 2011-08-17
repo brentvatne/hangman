@@ -30,10 +30,10 @@ describe Hangman do
       @hangman.already_guessed?("a").should be_true
       @hangman.already_guessed?("b").should be_true
     end
+
     it "should apply the guesses from left to right when multiple are given" do
       @hangman.guesses_remaining = 1
-      begin; @hangman.guess("a*z") 
-      rescue InvalidGuessError; end
+      @hangman.guess("a*z") 
 
       @hangman.already_guessed?("a").should be_true
       @hangman.already_guessed?("*").should be_true
@@ -74,6 +74,17 @@ describe Hangman do
       it "should return the number of times the player has guessed" do
         @hangman.guess("abcc")
         @hangman.number_of_guesses.should == 4
+      end
+    end
+
+    describe "#solved?" do
+      it "should return false when the puzzle is unsolved" do
+        @hangman.solved?.should be_false
+      end
+
+      it "should return true when the puzzle has been solved" do
+        @hangman.guess(@hangman.solution_diff.keys.join)
+        @hangman.solved?.should be_true
       end
     end
   end

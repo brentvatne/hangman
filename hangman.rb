@@ -34,14 +34,13 @@ class Hangman
   end
 
   def guess(symbol)
-    #Handle multi-symbol guesses recursively in reverse order, so the deepest point of the stack is the first symbol
-    return if @guesses_remaining == 0
-
     if symbol.length > 1
       remaining_symbols = symbol[0..symbol.length-2]
       symbol            = symbol[symbol.length-1]  
       guess(remaining_symbols)
     end
+
+    return if @guesses_remaining == 0 or solved?
 
     ensure_valid_guess!(symbol)
 
@@ -51,14 +50,13 @@ class Hangman
     else
       @guessed[:incorrect].push symbol
       @guesses_remaining -= 1
-      @solved = true
     end
 
     number_of_occurences_in_solution(symbol)
   end
 
   def solved?
-    @solved
+    @guessed[:correct] == @solution_diff.keys 
   end
 
   def solution_contains?(symbol)
@@ -77,7 +75,6 @@ class Hangman
 
   def ensure_valid_guess!(symbol)
     raise InvalidGuessError, "Invalid guess character" if not valid_symbol?(symbol)
-    raise InvalidGuessError, "No guesses remaining" if @guesses_remaining <= 0
   end
 
   def number_of_occurences_in_solution(symbol)
