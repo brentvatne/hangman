@@ -1,6 +1,8 @@
 require_relative 'hangman_parser.rb'
 
 class Hangman
+  class InvalidGuessError < StandardError; end
+  class BadInputDataError < StandardError; end
   attr_accessor :puzzle, :solution, :solution_diff, 
                 :puzzle_with_guesses, :guesses_remaining,
                 :guessed
@@ -15,7 +17,7 @@ class Hangman
   end
 
   def prepare_for_new_game
-    @puzzle_with_guesses = String.new(@puzzle)
+    @puzzle_with_guesses = @puzzle.dup
     @guesses_remaining   = @total_guesses
     @guessed             = { :correct => [], :incorrect => [] }
     @solved              = false
@@ -101,6 +103,3 @@ class Hangman
   end
 
 end
-
-class InvalidGuessError < StandardError; end
-class BadInputDataError < StandardError; end

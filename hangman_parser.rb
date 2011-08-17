@@ -46,7 +46,7 @@ class HangmanParser
 
   #Hides the solution pieces of any line of text
   def hide_solution(solution, puzzle_instruction)
-    hidden = String.new(solution)
+    hidden = solution.dup
     puzzle_instruction.split("").each_with_index do |letter, pos|
       if letter == "^"
         hidden[pos] = "_"
