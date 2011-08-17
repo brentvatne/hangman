@@ -25,6 +25,21 @@ describe Hangman do
       @hangman.guess("z").should == 0
     end 
 
+    it "should accept guesses with one or more symbol at a time" do
+      @hangman.guess("ab*") 
+      @hangman.already_guessed?("a").should be_true
+      @hangman.already_guessed?("b").should be_true
+    end
+    it "should apply the guesses from left to right when multiple are given" do
+      @hangman.guesses_remaining = 1
+      begin; @hangman.guess("a*z") 
+      rescue InvalidGuessError; end
+
+      @hangman.already_guessed?("a").should be_true
+      @hangman.already_guessed?("*").should be_true
+      @hangman.already_guessed?("x").should be_false
+    end
+
     it "should raise an InvalidGuessError if it is not an acceptable guess string" do
       invalid_characters = %w() 
       invalid_characters.each do |invalid_character|
@@ -47,6 +62,19 @@ describe Hangman do
 
       @hangman.guessed[:correct].should == %w(a b)
       @hangman.guessed[:incorrect].should == %w(z x)
+    end
+  end
+
+  describe "helper methods" do
+    before(:each) do
+      @hangman = Hangman.load(ValidPuzzle)
+    end  
+
+    describe "#number_of_guesses" do
+      it "should return the number of times the player has guessed" do
+        @hangman.guess("abcc")
+        @hangman.number_of_guesses.should == 4
+      end
     end
   end
 end

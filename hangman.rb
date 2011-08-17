@@ -29,6 +29,10 @@ class Hangman
     end
   end
 
+  def number_of_guesses
+    @guessed.values.flatten.count
+  end
+
   def guess(symbol)
     #Handle multi-symbol guesses recursively in reverse order, so the deepest point of the stack is the first symbol
     return if @guesses_remaining == 0
