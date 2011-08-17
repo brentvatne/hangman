@@ -14,6 +14,7 @@ class Hangman
     @puzzle_with_guesses = String.new(@puzzle)
     @guessed             = { :correct => [], :incorrect => [] }
     @guesses_remaining   = guesses
+    @solved              = false
   end
 
   class << self
@@ -46,9 +47,14 @@ class Hangman
     else
       @guessed[:incorrect].push symbol
       @guesses_remaining -= 1
+      @solved = true
     end
 
     number_of_occurences_in_solution(symbol)
+  end
+
+  def solved?
+    @solved
   end
 
   def solution_contains?(symbol)
