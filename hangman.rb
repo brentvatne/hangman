@@ -12,8 +12,8 @@ class Hangman
     @solution_diff = parser.solution_diff 
 
     @puzzle_with_guesses = String.new(@puzzle)
-    @guessed             = { :correct => [], :incorrect => [] }
     @guesses_remaining   = guesses
+    @guessed             = { :correct => [], :incorrect => [] }
     @solved              = false
   end
 
