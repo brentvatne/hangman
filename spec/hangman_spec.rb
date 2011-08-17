@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'rspec'
+require 'spec_helper.rb'
 require './hangman.rb'
 
 describe Hangman do
@@ -77,16 +78,31 @@ describe Hangman do
       end
     end
 
+    describe "#game_over?" do
+      it "should return false when the puzzle has not been solved and guesses are remaining" do
+        @hangman.game_over?.should be_false
+      end
+
+      it "should return true when no guesses are remaining" do
+        @hangman.guesses_remaining = 0
+        @hangman.game_over?.should be_true
+      end
+
+      it "should return true when the puzzle has been solved" do
+        solve_puzzle(@hangman) 
+        @hangman.game_over?.should be_true
+      end 
+    end
+
     describe "#solved?" do
       it "should return false when the puzzle is unsolved" do
         @hangman.solved?.should be_false
       end
 
       it "should return true when the puzzle has been solved" do
-        @hangman.guess(@hangman.solution_diff.keys.join)
+        solve_puzzle(@hangman)
         @hangman.solved?.should be_true
       end
     end
   end
 end
-

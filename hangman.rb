@@ -10,13 +10,17 @@ class Hangman
     @puzzle        = parser.puzzle
     @solution      = parser.solution
     @solution_diff = parser.solution_diff 
+    @total_guesses = 10
+    prepare_for_new_game
+  end
 
+  def prepare_for_new_game
     @puzzle_with_guesses = String.new(@puzzle)
-    @guesses_remaining   = guesses
+    @guesses_remaining   = @total_guesses
     @guessed             = { :correct => [], :incorrect => [] }
     @solved              = false
   end
-
+  
   class << self
     def load_if_filename(puzzle_or_filename)
       puzzle_or_filename = File.open(puzzle_or_filename).read if File.exists?(puzzle_or_filename)
@@ -40,7 +44,7 @@ class Hangman
       guess(remaining_symbols)
     end
 
-    return if @guesses_remaining == 0 or solved?
+    return if game_over?
 
     ensure_valid_guess!(symbol)
 
@@ -55,8 +59,13 @@ class Hangman
     number_of_occurences_in_solution(symbol)
   end
 
+  def game_over?
+    (@guesses_remaining == 0) or solved?
+  end
+
   def solved?
-    @guessed[:correct] == @solution_diff.keys 
+    #this is inefficient but the arrays will both always be very small
+    @guessed[:correct].sort == @solution_diff.keys.sort
   end
 
   def solution_contains?(symbol)
