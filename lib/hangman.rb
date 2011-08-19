@@ -3,8 +3,8 @@ require_relative 'hangman_parser.rb'
 class Hangman
   class InvalidGuessError < StandardError; end
   class BadInputDataError < StandardError; end
-  attr_accessor :puzzle, :solution, :solution_diff, 
-                :puzzle_with_guesses, :guesses_remaining,
+  attr_accessor :puzzle, :solution, :description_of_problem, :description_of_solution,
+                :passing_tests, :solution_diff, :puzzle_with_guesses, :guesses_remaining,
                 :guessed
 
   def initialize(puzzle_data, guesses=10)
