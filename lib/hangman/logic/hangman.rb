@@ -1,20 +1,23 @@
+require 'data_mapper'
 require 'hangman/parser/hangman_parser'
 
 class Hangman
   class InvalidGuessError < StandardError; end
   class BadInputDataError < StandardError; end
-  attr_accessor :puzzle, :solution, :description_of_problem,
-                :description_of_solution, :passing_tests,
-                :solution_diff, :puzzle_with_guesses, :guesses_remaining,
-                :guessed
+
+  attr_accessor :solution_diff, :puzzle_with_guesses, 
+                :guesses_remaining, :guessed 
+  #TODO: rename guessed to already_guessed or something more helpful
 
   def initialize(puzzle_data, guesses=10)
-    parser = HangmanParser.new(puzzle_data); parser.parse
-    @puzzle        = parser.puzzle
-    @solution      = parser.solution
-    @solution_diff = parser.solution_diff 
-    @total_guesses = 10
-    prepare_for_new_game
+    unless puzzle_data.nil?
+      parser = HangmanParser.new(puzzle_data); parser.parse
+      @puzzle        = parser.puzzle
+      @solution      = parser.solution
+      @solution_diff = parser.solution_diff 
+      @total_guesses = 10
+      prepare_for_new_game
+    end
   end
 
   def prepare_for_new_game

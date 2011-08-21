@@ -3,6 +3,7 @@ source "http://rubygems.org"
 gem "sinatra", "~> 1.2.6"
 gem "haml", "~> 3.1.2"
 gem "sass", "~> 3.1.7"
+gem "sqlite3"
 
 #requires SQL lite install: brew install sqlite
 gem "dm-sqlite-adapter", "~> 1.1.0"
