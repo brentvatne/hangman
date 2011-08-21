@@ -7,7 +7,6 @@ class Hangman
 
   attr_accessor :solution_diff, :puzzle_with_guesses, 
                 :guesses_remaining 
-  #TODO: rename guessed to already_guessed or something more helpful
 
   def initialize(puzzle_data, guesses=10)
     unless puzzle_data.nil?
@@ -70,7 +69,6 @@ class Hangman
   end
 
   def solved?
-    #this is inefficient but the arrays will both always be very small
     @symbols_guessed[:correct].sort == @solution_diff.keys.sort
   end
 
