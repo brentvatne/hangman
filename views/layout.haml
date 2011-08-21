@@ -2,8 +2,22 @@
 %index
   %head
     %title= @title
-    %link{:rel => "stylesheet", :type=>"text/css", :href=>"/style.css"}
+    %link{:rel => "stylesheet", :type=>"text/css", :href=>"/css/style.css"}
+    %link{:rel => "stylesheet", :type=>"text/css", :href=>"/css/bootstrap-1.0.0.css"}
 
   %body
-    %h1= @msg
-    =yield
+    .container
+      .row
+        .span2.column
+          %p
+        .span12.column
+          .row
+            .span6.column
+              %h1
+                %a{:href=>"/"} Ruby Hangman
+            .span6.column.top-nav-buttons
+              %a.btn.primary{:href=>"/puzzles/random"} Play a random game
+              -unless @hide_upload_puzzle == true
+                %a.btn{:href=>"/puzzles/new"} Create a new puzzle
+          %hr/
+          =yield

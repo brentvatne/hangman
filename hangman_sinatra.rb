@@ -4,7 +4,7 @@ require 'sass'
 
 set :haml, :format => :html5
 
-get '/style.css' do
+get '/css/style.css' do
   scss :style 
 end
 
@@ -15,6 +15,7 @@ get '/' do
 end
 
 get '/puzzles/new' do
+  @hide_upload_puzzle = true
   haml :new_puzzle_form
 end
 
