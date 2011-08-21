@@ -1,4 +1,3 @@
-require 'data_mapper'
 require 'hangman/parser/hangman_parser'
 
 class Hangman

@@ -4,25 +4,25 @@
       %h2 Create new puzzle
     %label 
       %h3 Give your puzzle a name 
-    %input{:type => "text", :name => "puzzle_name"}
+    %input{:type => "text", :name => "name"}
     %label
       %h3 Description of the problem
-    %textarea{:name => "description_of_problem"}
+    %textarea{:name => "problem_desc"}
     %label
       %h3 Code with hangman markup
       .help-block
         %p
           %strong Is this your first time creating a Ruby hangman puzzle? Learn how to mark which parts of your code should be hidden in the puzzle:  
           %a markup syntax
-    %textarea.code{:name => "code"}
+    %textarea.code{:name => "puzzle_with_markup"}
     %label
       %h3 Tests (the solution passes these)
-    %textarea{:name => "tests"}
+    %textarea{:name => "passing_tests"}
     %label 
       %h3 About the solution
       .help-block
         %p
           %strong Why does this code work? What are the lessons to be learned?
-    %textarea{:name => "description_of_solution"}
+    %textarea{:name => "solution_desc"}
     .actions
       %button.btn.large.primary{:type=>"submit"} Submit 
