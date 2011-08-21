@@ -12,5 +12,3 @@ class HangmanPuzzle
   #property :times_played,  Integer
   #property :times_solved,  Integer
 end
-
-

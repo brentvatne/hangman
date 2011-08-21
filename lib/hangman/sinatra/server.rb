@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'haml'
 require 'sass'
-require 'data_mapper'
+require 'hangman/sinatra/dmconfig'
 
 set :haml, :format => :html5
 
@@ -21,12 +21,15 @@ get '/puzzles/new' do
 end
 
 post '/puzzles/create' do
-  "get posted data and create new database entry, then redirect to main page with a note that it has been made"
+
 end
 
 get '/puzzles/:id' do
-  "the easiest way to do it, assuming each one has an id of some sort"
+  # TODO:
+  # check to see that the param is a number
+  # this implies that names cannot be just numbers (validation will be required)
 end
+
 #get '/:puzzle_name' do
 #  "here is where you do the puzzles! the fun begins"
 #end
