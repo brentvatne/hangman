@@ -1,3 +1,4 @@
+$LOAD_PATH << Dir.pwd + "/lib"
 require 'hangman/logic/hangman'
 
 class HangmanCommandline
