@@ -14,6 +14,8 @@ describe HangmanPuzzle do
     }
   end
 
+  # TODO: should there be a minimum length for code? 
+  # TODO: There should definitely be a maximum length for all of these
   describe "validations" do
     it "should be valid if it is created with valid attributes" do
       HangmanPuzzle.create(@valid_attrs).should be_valid
@@ -23,7 +25,6 @@ describe HangmanPuzzle do
       HangmanPuzzle.create(@valid_attrs.merge(:name => nil)).should_not be_valid
     end
 
-    # TODO: should there be a minimum length? Should definitely be a maximum length
     it "requires a puzzle with markup" do
       HangmanPuzzle.create(@valid_attrs.merge(:puzzle_with_markup => nil)).should_not be_valid
     end

@@ -17,7 +17,7 @@ end
 
 get '/puzzles/new' do
   @hide_upload_puzzle = true
-  haml :new_puzzle_form
+  haml "/puzzles/new".to_sym 
 end
 
 post '/puzzles/create' do
