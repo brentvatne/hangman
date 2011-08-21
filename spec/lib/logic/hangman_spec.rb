@@ -57,12 +57,13 @@ describe Hangman do
       expect { @hangman.guess("a") }.not_to change{@hangman.guesses_remaining}
     end
 
+    #this is testing the classes internals
     it "should add (in)correctly guessed symbols to guessed[:(in)correct]" do
       guesses = %w[a b z x]
       guesses.each { |e| @hangman.guess(e) }
 
-      @hangman.guessed[:correct].should == %w(a b)
-      @hangman.guessed[:incorrect].should == %w(z x)
+      @hangman.correct_guesses.should == %w(a b)
+      @hangman.incorrect_guesses.should == %w(z x)
     end
   end
 

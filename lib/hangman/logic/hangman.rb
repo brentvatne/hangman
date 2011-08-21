@@ -6,7 +6,7 @@ class Hangman
   class BadInputDataError < StandardError; end
 
   attr_accessor :solution_diff, :puzzle_with_guesses, 
-                :guesses_remaining, :guessed 
+                :guesses_remaining 
   #TODO: rename guessed to already_guessed or something more helpful
 
   def initialize(puzzle_data, guesses=10)
@@ -23,7 +23,7 @@ class Hangman
   def prepare_for_new_game
     @puzzle_with_guesses = @puzzle.dup
     @guesses_remaining   = @total_guesses
-    @guessed             = { :correct => [], :incorrect => [] }
+    @symbols_guessed     = { :correct => [], :incorrect => [] }
     @solved              = false
   end
   
@@ -40,7 +40,7 @@ class Hangman
   end
 
   def number_of_guesses
-    @guessed.values.flatten.count
+    @symbols_guessed.values.flatten.count
   end
 
   def guess(symbol)
@@ -55,10 +55,10 @@ class Hangman
     ensure_valid_guess!(symbol)
 
     if solution_contains?(symbol) and not already_guessed?(symbol) 
-      @guessed[:correct].push symbol 
+      @symbols_guessed[:correct].push symbol 
       fill_in_puzzle_with symbol
     else
-      @guessed[:incorrect].push symbol
+      @symbols_guessed[:incorrect].push symbol
       @guesses_remaining -= 1
     end
 
@@ -71,15 +71,23 @@ class Hangman
 
   def solved?
     #this is inefficient but the arrays will both always be very small
-    @guessed[:correct].sort == @solution_diff.keys.sort
+    @symbols_guessed[:correct].sort == @solution_diff.keys.sort
   end
 
   def solution_contains?(symbol)
     @solution_diff.include?(symbol)
   end
 
+  def incorrect_guesses
+    @symbols_guessed[:incorrect]
+  end
+
+  def correct_guesses
+    @symbols_guessed[:correct]
+  end
+
   def already_guessed?(symbol)
-    @guessed.values.flatten.include?(symbol)
+    @symbols_guessed.values.flatten.include?(symbol)
   end
 
   #Currently there are no invalid guesses
