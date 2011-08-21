@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rspec'
-require './hangman_parser.rb'
+require 'hangman/parser/hangman_parser'
+require 'spec_helper'
 
 describe HangmanParser do
   

@@ -1,4 +1,4 @@
-require_relative 'hangman_parser.rb'
+require 'hangman/parser/hangman_parser'
 
 class Hangman
   class InvalidGuessError < StandardError; end

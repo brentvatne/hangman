@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rspec'
-require './hangman_commandline.rb'
+require 'hangman/commandline/hangman_commandline'
 
 describe HangmanCommandline do
   #how do I test this?

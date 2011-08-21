@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'haml'
 require 'sass'
+require 'data_mapper'
 
 set :haml, :format => :html5
 

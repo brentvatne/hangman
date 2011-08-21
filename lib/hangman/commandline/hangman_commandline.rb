@@ -1,4 +1,4 @@
-require_relative 'lib/hangman.rb'
+require 'hangman/logic/hangman'
 
 class HangmanCommandline
   
