@@ -1,5 +1,3 @@
-require 'hangman/parser/hangman_parser'
-
 class Hangman
   class InvalidGuessError < StandardError; end
   class BadInputDataError < StandardError; end

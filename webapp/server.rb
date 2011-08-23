@@ -1,8 +1,7 @@
-$LOAD_PATH << Dir.pwd + "/lib"
 require 'sinatra'
 require 'haml'
 require 'sass'
-require 'hangman/sinatra/dmconfig' #how do I not load this when I'm testing?
+require 'dmconfig' #how do I not load this when I'm testing?
 
 set :haml, :format => :html5
 
@@ -18,14 +17,16 @@ get '/puzzles/new' do
 end
 
 post '/puzzles/create' do
-  HangmanPuzzle.create({
-    :name => params[:name],
-    :problem_desc => params[:problem_desc],
-    :puzzle_with_markup => params[:puzzle_with_markup],
-    :passing_tests => params[:passing_tests],
-    :solution_desc => params[:solution_desc]
-  }) 
-  # TODO: redirect to index with a flash notice 
+  new_puzzle = HangmanPuzzle.create(params)
+  if new_puzzle.saved? 
+    @flash[:success] = "#{params[:name]} has been created!"
+    #how do I re-create flash?
+    redirect '/'
+  else 
+    #flash[:error] = "..."
+    #show field errors
+    redirect '/puzzles/new'
+  end
 end
 
 get '/puzzles/:id' do

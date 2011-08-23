@@ -1,7 +1,5 @@
-require 'rubygems'
 require 'rspec'
 require 'spec_helper'
-require 'hangman/logic/hangman'
 
 describe Hangman do
   ValidPuzzle = File.open("spec/sample_puzzle.txt").read

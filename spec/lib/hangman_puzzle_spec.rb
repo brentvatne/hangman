@@ -1,5 +1,4 @@
 require 'rspec'
-require 'hangman/models/hangman_puzzle'
 
 describe HangmanPuzzle do
   setup_empty_test_datamapper_db
