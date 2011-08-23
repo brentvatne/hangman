@@ -1,3 +1,6 @@
+-if flash[:error]
+  .alert-message.error=flash[:error]
+
 %form.form-stacked.new_puzzle_form{:action => "/puzzles/create", :method => "post"}
   %fieldset
     %legend 

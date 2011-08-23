@@ -1,45 +1,54 @@
-require 'sinatra'
+require 'sinatra/base'
 require 'haml'
 require 'sass'
-require 'dmconfig' #how do I not load this when I'm testing?
+require 'rack-flash'
+require File.expand_path("../../lib/hangman", __FILE__)
+require File.expand_path(File.join(File.dirname(__FILE__), "dmconfig"))
 
-set :haml, :format => :html5
+class HangmanServer < Sinatra::Base
+  use Rack::Flash
 
-get '/' do
-  @title = "Ruby Hangman!"
-  @msg = "Test message!"
-  haml :index
-end
+  set :haml, :format => :html5
+  set :root, File.dirname(__FILE__)
+  enable :sessions
 
-get '/puzzles/new' do
-  @hide_upload_puzzle = true
-  haml "/puzzles/new".to_sym 
-end
-
-post '/puzzles/create' do
-  new_puzzle = HangmanPuzzle.create(params)
-  if new_puzzle.saved? 
-    @flash[:success] = "#{params[:name]} has been created!"
-    #how do I re-create flash?
-    redirect '/'
-  else 
-    #flash[:error] = "..."
-    #show field errors
-    redirect '/puzzles/new'
+  get '/' do
+    @title = "Ruby Hangman!"
+    @msg = "Test message!"
+    haml :index
   end
-end
 
-get '/puzzles/:id' do
-  # TODO:
-  # check to see that the param is a number
-  # this implies that names cannot be just numbers (validation will be required)
-end
+  get '/puzzles/new' do
+    @hide_upload_puzzle = true
+    haml "/puzzles/new".to_sym 
+  end
 
-get '/css/style.css' do
-  scss :style 
-end
+  post '/puzzles/create' do
+    new_puzzle = HangmanPuzzle.create(params)
+    if new_puzzle.saved? 
+      flash[:success] = "#{params[:name]} has been created!"
+      redirect '/'
+    else 
+      flash[:error] = "Required fields are missing, please fill them in and try again."
+      #show field errors somehow?
+      redirect '/puzzles/new'
+    end
+  end
 
-#get '/:puzzle_name' do
-#  "here is where you do the puzzles! the fun begins"
-#end
+  get '/puzzles/:id' do
+    # TODO:
+    # check to see that the param is a number
+    # this implies that names cannot be just numbers (validation will be required)
+  end
+
+  get '/css/style.css' do
+    scss :style 
+  end
+
+  #get '/:puzzle_name' do
+  #  "here is where you do the puzzles! the fun begins"
+  #end
+
+  run!
+end
 

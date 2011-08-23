@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hangman]))
+require File.expand_path("../../lib/hangman", __FILE__) 
 
 def solve_puzzle(hangman)
   hangman.guess(hangman.solution_diff.keys.reverse.join)

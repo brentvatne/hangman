@@ -20,6 +20,6 @@
               -unless @hide_upload_puzzle == true
                 %a.btn{:href=>"/puzzles/new"} Create a new puzzle
           %hr/
-          -if @flash
-            .success=@flash[:success]
+          -if flash[:success]
+            .alert-message.success=flash[:success]
           =yield
