@@ -24,7 +24,7 @@ class HangmanServer < Sinatra::Base
   end
 
   post '/puzzles/create' do
-    new_puzzle = HangmanPuzzle.create(params)
+    new_puzzle = HangmanPuzzle.create(params.sanitize)
     if new_puzzle.saved? 
       flash[:success] = "#{params[:name]} has been created!"
       redirect '/'

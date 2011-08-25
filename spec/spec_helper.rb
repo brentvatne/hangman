@@ -1,3 +1,4 @@
+#make individual spec_helper in each directory which requires this spec helper
 require File.expand_path("../../lib/hangman", __FILE__) 
 
 def solve_puzzle(hangman)
