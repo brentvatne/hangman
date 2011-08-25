@@ -5,6 +5,7 @@ gem "haml", "~> 3.1.2"
 gem "sass", "~> 3.1.7"
 gem "rack-flash"
 gem "sqlite3"
+gem "sanitize"
 
 #requires SQL lite install: brew install sqlite
 gem "dm-sqlite-adapter", "~> 1.1.0"

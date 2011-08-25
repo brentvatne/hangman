@@ -3,13 +3,13 @@ require 'haml'
 require 'sass'
 require 'rack-flash'
 require File.expand_path("../../lib/hangman", __FILE__)
-require File.expand_path(File.join(File.dirname(__FILE__), "dmconfig"))
+require File.expand_path("dmconfig", File.dirname(__FILE__))
 
 class HangmanServer < Sinatra::Base
   use Rack::Flash
 
-  set :haml, :format => :html5
   set :root, File.dirname(__FILE__)
+  set :haml, :format => :html5
   enable :sessions
 
   get '/' do
