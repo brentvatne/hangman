@@ -1,11 +1,11 @@
 require 'sanitize'
 class Hash
 
-  def sanitize
-    dup.sanitize!
+  def sanitize_html
+    dup.sanitize_html!
   end
 
-  def sanitize!
+  def sanitize_html!
     each do |k,v|
       self[k] = Sanitize.clean(v).strip
     end
@@ -13,8 +13,3 @@ class Hash
   end
 
 end
-
-#   a = %w[foo bar]
-#    a = Hash
-#    #  Hash.[]
-#    a[1]  # => a.send(:[], 1) 

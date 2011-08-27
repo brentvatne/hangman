@@ -14,20 +14,16 @@ describe Hash do
       }
   end
 
-  describe "#sanitize" do
-
-    it "should remove all HTML tags from each value" do
-      @html_filled_hash.sanitize.should == @same_hash_without_html
-    end
-
-    it "should deny little Bobby Tables" do
-      pending "do this later"
+  describe "#sanitize_html" do
+    it "should return a copy of the hash with HTML tags removed from each value" do
+      @html_filled_hash.sanitize_html.should == @same_hash_without_html
+      @html_filled_hash.should_not == @same_hash_without_html
     end
   end
 
   describe "#sanitize!" do
     it "should mutate the original object" do   
-      @html_filled_hash.sanitize!
+      @html_filled_hash.sanitize_html!
       @html_filled_hash.should == @same_hash_without_html 
     end
   end

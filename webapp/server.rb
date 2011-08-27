@@ -24,7 +24,8 @@ class HangmanServer < Sinatra::Base
   end
 
   post '/puzzles/create' do
-    new_puzzle = HangmanPuzzle.create(params.sanitize)
+    #no need to sanitize for SQLi as DataMapper takes care of it
+    new_puzzle = HangmanPuzzle.create(params.sanitize_html) 
     if new_puzzle.saved? 
       flash[:success] = "#{params[:name]} has been created!"
       redirect '/'
