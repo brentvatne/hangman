@@ -1,19 +1,12 @@
 .row
   .span12.column
     %h2.list-header Recently Added
-.row
-  .span2.column
-    %h6 April 11, 2011
-  .span6.column
-    %h3 
-      %a Some puzzle name
-    %p
-      %em played 43 times, 60% correct on first attempt
-.row
-  .span2.column
-    %h6 April 11, 2011
-  .span6.column
-    %h3
-      %a Some puzzle name
-    %p
-      %em played 43 times, 60% correct on first attempt
+-@recent_puzzles.each |puzzle| 
+  .row
+    .span2.column
+      %h6 puzzle.created_on
+    .span6.column
+      %h3 
+        %a puzzle.name
+      %p
+        %em played 43 times, 60% correct on first attempt

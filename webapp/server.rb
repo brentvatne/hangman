@@ -14,9 +14,9 @@ class HangmanServer < Sinatra::Base
   enable :sessions
 
   get '/' do
-    @title = "Ruby Hangman!"
-    @msg = "Test message!"
-    haml :index
+    @title   = "Ruby Hangman!"
+    @recent_puzzles = HangmanPuzzle.recent
+    haml "/puzzles/index".to_sym
   end
 
   get '/puzzles/new' do

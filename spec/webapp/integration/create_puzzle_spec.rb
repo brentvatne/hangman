@@ -7,8 +7,6 @@ describe "creating a new puzzle", :type => :request do
     page.should have_content("Create new puzzle")
   end
 
-  # todo: this is testing that the page it redirects to has this content,
-  # an indirect way of testing that the attribute is saved with escaped html 
   it "prevents xss by escaping html tags in puzzle attributes" do
     xss_attempt = "<script src=\"hack.js\"></script>"
     xss_neutralized = "&lt;script src=\"hack.js\"&gt;&lt;/script&gt;"

@@ -13,8 +13,8 @@ describe HangmanPuzzle do
     }
   end
 
-  # TODO: should there be a minimum length for code? 
-  # TODO: There should definitely be a maximum length for all of these
+  # todo: should there be a minimum length for code? 
+  # todo: there should definitely be a maximum length for all of these
   describe "validations" do
     it "should be valid if it is created with valid attributes" do
       HangmanPuzzle.create(@valid_attrs).should be_valid
@@ -35,4 +35,5 @@ describe HangmanPuzzle do
       HangmanPuzzle.create(@valid_attrs.merge(:solution_desc => nil)).should_not be_valid
     end
   end
+
 end

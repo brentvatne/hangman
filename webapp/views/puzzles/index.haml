@@ -1,0 +1,12 @@
+.row
+  .span12.column
+    %h2.list-header Recently Added
+-@recent_puzzles.each do |p|
+  .row
+    .span2.column
+      %h6=p.formatted_created_on
+    .span6.column
+      %h3 
+        %a=p.name
+      %p
+        %em="played #{p.times_played} times, #{p.percent_solved}% correct on first attempt"
