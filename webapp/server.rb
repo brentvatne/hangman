@@ -29,7 +29,7 @@ class HangmanServer < Sinatra::Base
     safe_params = params.escape_html
     new_puzzle = HangmanPuzzle.create(safe_params)
     if new_puzzle.saved?
-      flash[:success] = "#{safe_params[:name]} has been created!"
+      flash[:success] = "#{new_puzzle[:name]} has been created!"
       redirect '/'
     else
       flash[:error] = "Required fields are missing, please fill them in and try again."
