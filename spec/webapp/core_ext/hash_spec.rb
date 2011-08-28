@@ -6,25 +6,25 @@ describe Hash do
   before(:each) do
       @html_filled_hash = { 
         :first_key  => "<img src=\"img.jpg\">some image",
-        :second_key => "<p><i><b>bobby</b></i></p>" 
+        :second_key => "<p>bobby</p>" 
       }
-      @same_hash_without_html = { 
-        :first_key  => "some image",
-        :second_key => "bobby", 
+      @same_hash_with_html_escaped = { 
+        :first_key  => "&lt;img src=\"img.jpg\"&gt;some image",
+        :second_key => "&lt;p&gt;bobby&lt;/p&gt;", 
       }
   end
 
-  describe "#sanitize_html" do
+  describe "#escape_html" do
     it "should return a copy of the hash with HTML tags removed from each value" do
-      @html_filled_hash.sanitize_html.should == @same_hash_without_html
-      @html_filled_hash.should_not == @same_hash_without_html
+      @html_filled_hash.escape_html.should == @same_hash_with_html_escaped
+      @html_filled_hash.should_not == @same_hash_with_html_escaped
     end
   end
 
-  describe "#sanitize!" do
+  describe "#escape!" do
     it "should mutate the original object" do   
-      @html_filled_hash.sanitize_html!
-      @html_filled_hash.should == @same_hash_without_html 
+      @html_filled_hash.escape_html!
+      @html_filled_hash.should == @same_hash_with_html_escaped 
     end
   end
 end

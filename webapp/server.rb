@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'haml'
 require 'sass'
 require 'rack-flash'
+require File.expand_path("../core_ext/hash", __FILE__)
 require File.expand_path("../../lib/hangman", __FILE__)
 require File.expand_path("dmconfig", File.dirname(__FILE__))
 
@@ -25,13 +26,13 @@ class HangmanServer < Sinatra::Base
 
   post '/puzzles/create' do
     #no need to sanitize for SQLi as DataMapper takes care of it
-    new_puzzle = HangmanPuzzle.create(params.sanitize_html)
+    safe_params = params.escape_html
+    new_puzzle = HangmanPuzzle.create(safe_params)
     if new_puzzle.saved?
-      flash[:success] = "#{params[:name]} has been created!"
+      flash[:success] = "#{safe_params[:name]} has been created!"
       redirect '/'
     else
       flash[:error] = "Required fields are missing, please fill them in and try again."
-      # todo: show errors on each field
       redirect '/puzzles/new'
     end
   end
@@ -48,6 +49,5 @@ class HangmanServer < Sinatra::Base
     scss :style
   end
 
-  run!
 end
 

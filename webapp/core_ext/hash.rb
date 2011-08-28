@@ -1,15 +1,13 @@
-require 'sanitize'
 class Hash
 
-  def sanitize_html
-    dup.sanitize_html!
+  def escape_html
+    dup.escape_html!
   end
 
-  def sanitize_html!
+  def escape_html!
     each do |k,v|
-      self[k] = Sanitize.clean(v).strip
+       self[k] = v.gsub(/[<]/,"&lt;").gsub(/[>]/,"&gt;")
     end
-    self
   end
 
 end
