@@ -1,4 +1,5 @@
 require 'rspec'
+require 'spec_helper'
 
 describe HangmanPuzzle do
   setup_empty_test_datamapper_db
@@ -36,4 +37,15 @@ describe HangmanPuzzle do
     end
   end
 
+  describe "before filters" do
+    describe "before saving" do
+      it "should escape html from each attribute" do
+        pending "need to find out why DataMapper::Resource#attributes= isn't working"
+        xss_attempt = "<script src=\"hack.js\"></script>"
+        xss_neutralized = "&lt;script src=\"hack.js\"&gt;&lt;/script&gt;"
+        p = HangmanPuzzle.create(@valid_attrs.merge(:name => xss_attempt))
+        p[:name].should == xss_neutralized
+      end
+    end
+  end
 end

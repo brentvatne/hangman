@@ -13,6 +13,11 @@ class HangmanPuzzle
   property :times_solved,       Integer, :default => 0
   property :created_on,         Date
   
+  before :create, :sanitize_attributes
+
+  def sanitize_attributes
+  end
+  
   def formatted_created_on
     created_on.strftime "%B %e"
   end
