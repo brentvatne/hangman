@@ -20,7 +20,6 @@ class HangmanCommandline
 
     def display_puzzle
       puts @hangman.puzzle_with_guesses
-      puts "HI"
     end
 
     def display_remaining_guesses
@@ -59,4 +58,4 @@ class HangmanCommandline
 end
 
 #To run it:
-HangmanCommandline.load('sample_puzzle.txt')
+HangmanCommandline.load('/Users/brentvatne/ruby_projects/hangman/commandline/sample_puzzle.txt')

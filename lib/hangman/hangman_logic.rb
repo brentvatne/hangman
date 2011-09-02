@@ -27,7 +27,7 @@ class Hangman
   
   class << self
     def load_if_filename(puzzle_or_filename)
-      puzzle_or_filename = File.open(puzzle_or_filename).read if File.exists?(puzzle_or_filename)
+      puzzle_or_filename = File.read(puzzle_or_filename) if File.exists?(puzzle_or_filename)
       puzzle_or_filename
     end
 
