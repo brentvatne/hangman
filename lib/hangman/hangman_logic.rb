@@ -57,6 +57,10 @@ class Hangman
     @symbols_guessed.values.flatten.count
   end
 
+  def number_of_incorrect_guesses
+    incorrect_guesses.count
+  end
+  
   def guess(symbol)
     if symbol.length > 1
       remaining_symbols = symbol[0..symbol.length-2]

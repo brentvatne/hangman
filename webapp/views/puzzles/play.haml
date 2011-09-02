@@ -7,7 +7,9 @@
     .row
       %h2
     .row
-      %p
+      %p="#{@puzzle.number_of_guesses} guesses so far, #{@puzzle.number_of_incorrect_guesses} incorrect."
+      %p="incorrect: #{@puzzle.incorrect_guesses}"
+      %p="correct: #{@puzzle.correct_guesses}"
 .row
   .span12.column
     %input
