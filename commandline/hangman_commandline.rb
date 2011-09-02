@@ -20,6 +20,7 @@ class HangmanCommandline
 
     def display_puzzle
       puts @hangman.puzzle_with_guesses
+      puts "HI"
     end
 
     def display_remaining_guesses
