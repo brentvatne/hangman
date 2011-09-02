@@ -1,5 +1,4 @@
-$LOAD_PATH << Dir.pwd + "/lib"
-require 'hangman/logic/hangman'
+require File.expand_path(File.join(File.dirname(__FILE__),'../lib/hangman'))
 
 class HangmanCommandline
   
@@ -59,4 +58,4 @@ class HangmanCommandline
 end
 
 #To run it:
-#HangmanCommandline.load('sample_puzzle.txt')
+HangmanCommandline.load('sample_puzzle.txt')

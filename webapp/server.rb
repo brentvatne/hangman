@@ -5,6 +5,7 @@ require 'rack-flash'
 require File.expand_path("../core_ext/hash", __FILE__)
 require File.expand_path("../../lib/hangman", __FILE__)
 require File.expand_path("dmconfig", File.dirname(__FILE__))
+require File.expand_path("html_printer", File.dirname(__FILE__))
 
 class HangmanServer < Sinatra::Base
   use Rack::Flash
@@ -25,7 +26,6 @@ class HangmanServer < Sinatra::Base
   end
 
   post '/puzzles/create' do
-    #no need to sanitize for SQLi as DataMapper takes care of it
     safe_params = params.escape_html
     new_puzzle = HangmanPuzzle.create(safe_params)
     if new_puzzle.saved?
@@ -37,12 +37,22 @@ class HangmanServer < Sinatra::Base
     end
   end
 
+  get %r{/puzzles/([\d]+)/(.+)} do
+    id = params[:captures][0]
+    guesses = params[:captures][1]
+    @puzzle = Hangman.new(HangmanPuzzle.get!(id))
+    @puzzle.guess(guesses)
+    haml "/puzzles/play".to_sym
+  end
+
   get %r{/puzzles/([\d]+)} do
     id = params[:captures].first
+    @puzzle = Hangman.new(HangmanPuzzle.get!(id))
+    haml "/puzzles/play".to_sym
   end
 
   #get '/:puzzle_name' do
-  #  "here is where you do the puzzles! the fun begins"
+  #   <D-[>    
   #end
 
   get '/css/style.css' do
@@ -50,4 +60,3 @@ class HangmanServer < Sinatra::Base
   end
 
 end
-

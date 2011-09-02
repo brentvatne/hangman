@@ -1,8 +1,8 @@
 class HangmanParser
   attr_accessor :puzzle, :solution, :solution_diff
 
-  def initialize(puzzle_data)
-    @puzzle_data = puzzle_data
+  def initialize(puzzle_with_markup)
+    @puzzle_data = puzzle_with_markup
   end 
 
   def parse
@@ -11,12 +11,15 @@ class HangmanParser
   end
 
   def get_puzzle_and_solution
+    return @puzzle, @solution if not @puzzle.nil? and not @solution.nil?
     puzzle, solution = "", ""
     #split on \n without consume by using ?= lookahead 
     puzzle_data_by_line = @puzzle_data.split(/(?=\n)/)
   
     puzzle_data_by_line.each_with_index do |line, num|
-      unless hangman_instruction?(line)
+      if hangman_instruction?(line)
+        puts "it's an instruction!"
+      else
         next_line = puzzle_data_by_line[num+1] || :EOF
 
         solution += line
@@ -40,8 +43,7 @@ class HangmanParser
   end
 
   def hangman_instruction?(line)
-    comment_line_regexp = /^\s*[#][\^\s]*HANGMAN$/
-    !!(line.match(comment_line_regexp))
+    line.match(/^(\n)?#[\s^*]+HANGMAN(\r)?$/)
   end
 
   #Hides the solution pieces of any line of text

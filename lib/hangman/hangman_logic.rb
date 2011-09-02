@@ -5,22 +5,24 @@ class Hangman
   attr_accessor :solution_diff, :puzzle_with_guesses, 
                 :guesses_remaining 
 
+  #having this and load separate is not a good idea
+  #it makes more sense to have whatever external class handle the loading
   def initialize(puzzle_data, guesses=10)
     unless puzzle_data.nil?
-      parser = HangmanParser.new(puzzle_data); parser.parse
+      @puzzle_data   = puzzle_data
+      if @puzzle_data.respond_to?(:puzzle_with_markup)
+        pwm = @puzzle_data.puzzle_with_markup
+      else
+        pwm = @puzzle_data
+      end
+      parser = HangmanParser.new(pwm)
+      parser.parse
       @puzzle        = parser.puzzle
       @solution      = parser.solution
       @solution_diff = parser.solution_diff 
-      @total_guesses = 10
+      @total_guesses = guesses
       prepare_for_new_game
     end
-  end
-
-  def prepare_for_new_game
-    @puzzle_with_guesses = @puzzle.dup
-    @guesses_remaining   = @total_guesses
-    @symbols_guessed     = { :correct => [], :incorrect => [] }
-    @solved              = false
   end
   
   class << self
@@ -33,6 +35,22 @@ class Hangman
       puzzle = load_if_filename(puzzle)
       new(puzzle, guesses)
     end
+  end
+
+  def method_missing(m)
+   @puzzle_data.send(m) 
+  end
+
+  def guesses
+    @symbols_guessed.values.flatten.uniq.join(", ")
+  end
+
+  def prepare_for_new_game
+    @puzzle_with_guesses = @puzzle.dup
+    @guesses_remaining   = @total_guesses
+    @symbols_guessed     = { :correct => [], :incorrect => [] }
+    @solved              = false
+    self
   end
 
   def number_of_guesses

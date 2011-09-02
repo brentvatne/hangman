@@ -1,0 +1,13 @@
+.row
+  .span8.column
+    %h2=@puzzle.name
+    %p=@puzzle.problem_desc
+    %p=HtmlPrinter.new.print(@puzzle.puzzle_with_guesses)
+  .span4.column
+    .row
+      %h2
+    .row
+      %p
+.row
+  .span12.column
+    %input
