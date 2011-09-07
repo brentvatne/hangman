@@ -7,7 +7,7 @@ class Hangman
 
   #having this and load separate is not a good idea
   #it makes more sense to have whatever external class handle the loading
-  def initialize(puzzle_data, guesses=10)
+  def initialize(puzzle_data, guesses=7)
     unless puzzle_data.nil?
       @puzzle_data   = puzzle_data
       if @puzzle_data.respond_to?(:puzzle_with_markup)
@@ -31,7 +31,7 @@ class Hangman
       puzzle_or_filename
     end
 
-    def load(puzzle, guesses = 10) 
+    def load(puzzle, guesses=7) 
       puzzle = load_if_filename(puzzle)
       new(puzzle, guesses)
     end

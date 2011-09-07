@@ -9,7 +9,7 @@ $(function(){
           new_url;
 
       split_url = current_url.split("/");
-      if (split_url[-2] == "puzzles") {
+      if (split_url[split_url.length - 2] == "puzzles") {
         separator = "/";
       }
       

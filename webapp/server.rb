@@ -5,6 +5,7 @@ require 'rack-flash'
 require File.expand_path("../core_ext/hash", __FILE__)
 require File.expand_path("../../lib/hangman", __FILE__)
 require File.expand_path("dmconfig", File.dirname(__FILE__))
+require File.expand_path("hangman_ascii", File.dirname(__FILE__))
 require File.expand_path("html_printer", File.dirname(__FILE__))
 
 class HangmanServer < Sinatra::Base
@@ -41,18 +42,20 @@ class HangmanServer < Sinatra::Base
     id = params[:captures][0]
     guesses = params[:captures][1]
     @puzzle = Hangman.new(HangmanPuzzle.get!(id))
-    @puzzle.guess(guesses)
+    @puzzle.guess(guesses) 
+    @drawing = HangmanAscii.draw(@puzzle.number_of_incorrect_guesses)
     haml "/puzzles/play".to_sym
   end
 
   get %r{/puzzles/([\d]+)} do
     id = params[:captures].first
     @puzzle = Hangman.new(HangmanPuzzle.get!(id))
+    @drawing = HangmanAscii.draw(0)
     haml "/puzzles/play".to_sym
   end
 
   #get '/:puzzle_name' do
-  #   <D-[>    
+  # can't contain / or .?
   #end
 
   get '/css/style.css' do
