@@ -12,4 +12,8 @@
       %p="correct: #{@puzzle.correct_guesses}"
 .row
   .span12.column
-    %input
+    %input#guess
+    %a#submit.btn{} &gt;
+.row
+  .span12.column
+    %p=request.path_info

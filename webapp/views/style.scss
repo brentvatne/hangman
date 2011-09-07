@@ -11,7 +11,10 @@ textarea.code {
 }
 
 input, textarea {
-  width: 100% !important;
+  width: 90% !important;
+  border: 0;
+  border-bottom: 1px dashed #ccc;
+  height: 20px;
   margin-bottom: 10px !important;
 }
 
