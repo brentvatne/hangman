@@ -1,3 +1,6 @@
+continue? who knows
+
+
 -fix load paths and loading of sample puzzle: scattered everywhere
 -move loading logic entirely out of the Hangman class- should accept some object with accessible 'dot' properties for the info we need
 -hangman shouldn't know about the model implementation i choose- this should all be separate, just have a defined interface 
