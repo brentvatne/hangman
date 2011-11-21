@@ -12,5 +12,6 @@ gem "data_mapper", "~> 1.1.0"
 
 group :development, :test do
   gem "rspec", "~> 2.6.0"
+  gem "cucumber"
   gem "capybara", "~> 1.0.1"
 end

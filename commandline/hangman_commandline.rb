@@ -1,7 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__),'../lib/hangman'))
 
 class HangmanCommandline
-  
   class << self
 
     def load(puzzle_or_filename)
@@ -50,7 +49,7 @@ class HangmanCommandline
       else
         puts "# FirstWorldProblems: you just lost at Ruby hangman."
         restart if continue?
-      end 
+      end
     end
 
   end
